@@ -56,7 +56,7 @@ namespace FridgyKey
             SqlConnection sqlCon = clsDB.Get_DB_Connection();
             try
             {
-                //clsDB.Execute_SQL("insert into [tblFrost] ([frostID], [productID], [amount], [ei], [valid]) values ('" + User.FrostID + "'," + Get_id(name) + "," + _amount + ",'" + _ei + "'," + _valid + ");");
+                clsDB.Execute_SQL("insert into [tblKkal] ([name], [kkal]) values ('" + name + "'," + _amount + ");");
             }
             catch (Exception ex)
             {

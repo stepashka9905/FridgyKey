@@ -279,7 +279,7 @@ namespace FridgyKey
         {
             if (!(name.Text == "" || txtkkal.Text == ""))
             {
-              //  FridgeProduct.Set_product(Convert.ToInt32(txtam.Text), txtprice.Text, (DateTime)dat.SelectedDate, (string)(combo.SelectedItem));
+                Product.Set_product(Convert.ToInt32(txtkkal.Text), name.Text);
                 txtad.Content = txtad.Content + "♥";
             }
             else txtad.Content = "Please, confirm all field";
