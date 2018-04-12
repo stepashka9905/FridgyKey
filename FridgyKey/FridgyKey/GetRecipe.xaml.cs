@@ -41,9 +41,7 @@ namespace FridgyKey
             l8 = (Label)FindName("label8");
             recipe = (ListBox)FindName("list_recipe");
             hack = (TextBox)FindName("hack_text");
-            #endregion
-
-           
+            #endregion 
 
             #region подбор правильных рецептов
             int bad_count = 0; //счетчик недостающих продуктов
