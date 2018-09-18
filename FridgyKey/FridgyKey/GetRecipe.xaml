@@ -11,31 +11,33 @@
     <Grid Width="972">
 
         <DockPanel>
-            <Canvas Background="#4B4A43">
+            <Canvas x:Name="canv" Background="#4B4A43">
 
-                <Border Background="#696969" Height="544" Width="466" Canvas.Left="492" Canvas.Top="38">
+                <DockPanel Background="#696969" Height="544" Width="550" Canvas.Left="408" Canvas.Top="38">
 
                     <!--<DockPanel Background="#464646" Height="103" Width="433" Margin="0,4,0,1">
                                     <Image x:Name="icon_r1" Width="90" Height="90" Margin="8,0,279,0"/>
                                     <Label x:Name="text_r1" Foreground="#F3F3F3" Margin="-270,6,0,7.2" Width="311" FontSize="30" />
                                 </DockPanel>-->
 
-                    <ListBox SelectionChanged="list_recipe_Selected" x:Name="list_recipe" Background="#464646" Foreground="#F3F3F3" BorderBrush="#00ABADB3" Margin="10" FontSize="28" FontFamily="Nautilus Pompilius"/>
+                    <ListBox ToolTip="Столько процентов ингредиентов вы имеете сейчас" x:Name="listitem_recipe" Background="#464646" Foreground="#F3F3F3" BorderBrush="#00ABADB3" Margin="10,10,10,10" FontSize="28" FontFamily="Nautilus Pompilius" Width="72"/>
+                    <ListBox ToolTip="Нажмите, чтобы открыть рецепт" SelectionChanged="list_recipe_Selected" x:Name="list_recipe" Background="#464646" Foreground="#F3F3F3" BorderBrush="#00ABADB3" Margin="-3,10,10,10" FontSize="28" FontFamily="Nautilus Pompilius" Width="454"/>
 
 
-                </Border>
-                <Border Background="#FCEFDF" Canvas.Left="70" Canvas.Top="38" Height="544" Width="402"/>
+
+                </DockPanel>
+                <Border Background="#FCEFDF" Canvas.Left="70" Canvas.Top="38" Height="544" Width="333"/>
                 <Image x:Name="panda_im" gif:ImageBehavior.AnimatedSource="images/test/16.gif" Canvas.Left="130" Canvas.Top="330" Height="243" Width="302" />
 
                 <Label Background="#FFFEF2E6" Height="27" Canvas.Left="220" Canvas.Top="546" Width="111"/>
 
 
                 <TextBox IsReadOnly="True" x:Name="hack_text" Text="Положите в бокал вина несколько замороженных виноградинок. Напиток станет холодным, но не разбавленным." 
-                         TextWrapping="Wrap" AcceptsReturn="True" FontSize="24" FontFamily="Scotch(FONT BY LYAJKA)" Background="PapayaWhip" Foreground="#313937" Height="282" VerticalAlignment="Center" Width="382" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalScrollBarVisibility="Auto" Canvas.Left="81" Canvas.Top="48"/>
+                         TextWrapping="Wrap" AcceptsReturn="True" FontSize="24" FontFamily="Scotch(FONT BY LYAJKA)" Background="PapayaWhip" Foreground="#313937" Height="282" VerticalAlignment="Center" Width="309" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalScrollBarVisibility="Auto" Canvas.Left="81" Canvas.Top="48"/>
 
 
 
-                <Image  MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Source="images/icons/ref.png" Width="33" Height="29" Canvas.Left="159" Canvas.Top="7"/>
+                <Image ToolTip="Новый лайфхак"  MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Source="images/icons/ref.png" Width="33" Height="29" Canvas.Left="159" Canvas.Top="7"/>
 
 
 
@@ -58,8 +60,8 @@
                         <Label x:Name="label2"  
                                FontFamily="PG Isadora Cyr Pro" 
                                MouseLeftButtonDown="label2_MouseLeftButtonDown"
-                               MouseEnter="label2_MouseMove"
-                               MouseLeave="label2_MouseLeave"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
                                Content="Get recipe" 
                                FontSize="20" 
                                Width="150" 
@@ -70,8 +72,8 @@
                         <Label x:Name="label3"   
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label3_MouseLeftButtonDown" 
-                               MouseEnter="label3_MouseMove"
-                               MouseLeave="label3_MouseLeave"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
                                Content="Add product" 
                                FontSize="20" 
                                Width="150" 
@@ -82,8 +84,8 @@
                         <Label x:Name="label4"   
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label4_MouseLeftButtonDown" 
-                               MouseEnter="label4_MouseMove"
-                               MouseLeave="label4_MouseLeave"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
                                Content="Add recipe" 
                                FontSize="20" 
                                Width="150" 
@@ -94,8 +96,8 @@
                         <Label x:Name="label5"  
                                FontFamily="PG Isadora Cyr Pro" 
                                MouseLeftButtonDown="label5_MouseLeftButtonDown"
-                               MouseEnter="label5_MouseMove"
-                               MouseLeave="label5_MouseLeave"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
                                Content="Calculate kkal" 
                                FontSize="20" 
                                Width="150" 
@@ -103,11 +105,35 @@
                         <Image Source="images/icons/calculate.png" Width="35" Height="35"/>
                     </DockPanel>
                     <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
+                        <Label x:Name="label7" 
+                               FontFamily="PG Isadora Cyr Pro"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
+                               MouseLeftButtonDown="label7_MouseLeftButtonDown" 
+                               Content="Search recipe" 
+                               FontSize="20" 
+                               Width="154" 
+                               Foreground="#313937"/>
+                        <Image Source="images/icons/more.png" Width="30" Height="30"/>
+                    </DockPanel>
+                    <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
+                        <Label x:Name="label17" 
+                               FontFamily="PG Isadora Cyr Pro"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
+                               MouseLeftButtonDown="label17_MouseLeftButtonDown" 
+                               Content="My basket" 
+                               FontSize="20" 
+                               Width="150" 
+                               Foreground="#313937" Margin="-4,0,0,0"/>
+                        <Image Source="images/icons/buy.png" Width="37" Height="34"/>
+                    </DockPanel>
+                    <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
                         <Label x:Name="label6"   
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label6_MouseLeftButtonDown"
-                               MouseEnter="label6_MouseMove"
-                               MouseLeave="label6_MouseLeave"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
                                Content="Settings"
                                FontSize="20"
                                Width="150" 
@@ -115,22 +141,10 @@
                         <Image Source="images/icons/settings.png" Width="35" Height="35"/>
                     </DockPanel>
                     <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
-                        <Label x:Name="label7"   
-                               FontFamily="PG Isadora Cyr Pro"
-                               MouseEnter="label7_MouseMove"
-                               MouseLeave="label7_MouseLeave"
-                               MouseLeftButtonDown="label7_MouseLeftButtonDown" 
-                               Content="About" 
-                               FontSize="20" 
-                               Width="150" 
-                               Foreground="#313937"/>
-                        <Image Source="images/icons/more.png" Width="35" Height="35"/>
-                    </DockPanel>
-                    <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
                         <Label x:Name="label8"   
                                FontFamily="PG Isadora Cyr Pro"
-                               MouseEnter="label8_MouseMove"
-                               MouseLeave="label8_MouseLeave"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
                                MouseLeftButtonDown="Label8_MouseLeftButtonDown"
                                Content="Log out" 
                                FontSize="20" 
@@ -146,13 +160,14 @@
                     </Grid>
                 </Border>
 
-                <Label Foreground="#F3F3F3" Content="Lifehack:" Canvas.Left="70" Width="97" FontFamily="Nautilus Pompilius" FontSize="24" Height="43"/>
-                <Label Foreground="#F3F3F3" Content="Available recipes:" Canvas.Left="498" Width="277" FontFamily="Nautilus Pompilius" FontSize="24"/>
+                <Label ToolTip="Лайфхак" Foreground="#F3F3F3" Content="Lifehack:" Canvas.Left="70" Width="97" FontFamily="Nautilus Pompilius" FontSize="24" Height="43"/>
+                <Label ToolTip="Рецепты, которые подходят именно вам" Foreground="#F3F3F3" Content="Available recipes:" Canvas.Left="498" Width="277" FontFamily="Nautilus Pompilius" FontSize="24"/>
 
             </Canvas>
         </DockPanel>
-        <Image MouseLeftButtonDown="Image_MouseLeftButtonDown_1" Source="images/icons/hide2.png" Height="25" Margin="915,0,35,575" />
-        <Image MouseLeftButtonDown="Image_MouseLeftButtonDown" Source="images/icons/cross3.png" Height="25" Width="30" Margin="942,0,0,575" />
-
+        <Image ToolTip="Свернуть в трей" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" Source="images/icons/hide2.png" Height="25" Margin="922,0,28,575" />
+        <Image ToolTip="Закрыть" MouseLeftButtonDown="Image_MouseLeftButtonDown" Source="images/icons/cross3.png" Height="25" Width="25" Margin="942,0,0,575" />
+        <Image ToolTip="О программе" MouseLeftButtonDown="About_p" Source="images/icons/about.png" Height="25" Margin="895,0,55,575" />
+        <Image ToolTip="Инструкции" MouseLeftButtonDown="Quest" Source="images/icons/quest.png" Margin="864,0,82,569" Height="31" Width="26" />
     </Grid>
 </Window>

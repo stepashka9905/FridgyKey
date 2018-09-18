@@ -23,14 +23,18 @@ namespace FridgyKey
         #region var declaration
         private System.Windows.Forms.NotifyIcon MyNotifyIcon;
         Label l1, l2, l3, l4, l5, l6, l7, l8;
-        TextBox txtamount;
+        TextBox txtamount, txtei;
         SolidColorBrush Mcolor = new SolidColorBrush();
         SolidColorBrush Mcolor2 = new SolidColorBrush();
         ComboBox combo;
+        List<Ingredient> l = new List<Ingredient>();
+        Byte[] Data = null;
         #endregion
         public AddRecipe()
         {
             InitializeComponent();
+
+            Resource.Get_BG(canv);
             #region FindName
             l1 = (Label)FindName("label1");
             l2 = (Label)FindName("label2");
@@ -41,13 +45,23 @@ namespace FridgyKey
             l7 = (Label)FindName("label7");
             l8 = (Label)FindName("label8");
             txtamount = (TextBox)FindName("amount");
+            txtei = (TextBox)FindName("ei");
             combo = (ComboBox)FindName("comboBox");
             #endregion
 
-            string[] ar = new string[] { "Banana", "Milk" }; //add to fridge combobox
-            combo.ItemsSource = ar;
+            Fill();
 
             #region service
+            label1.ToolTip = "Главная страница";
+            label2.ToolTip = "Подобрать рецепт";
+            label3.ToolTip = "Добавить продукт";
+            label4.ToolTip = "Добавить рецепт";
+            label17.ToolTip = "Корзина покупок";
+            label5.ToolTip = "Калькулятор калорийности";
+            label6.ToolTip = "Настройки";
+            label7.ToolTip = "Поиск рецептов";
+            label8.ToolTip = "Выход";
+
             Mcolor = (SolidColorBrush)(new BrushConverter().ConvertFrom("#C2CAD1"));
             Mcolor2 = (SolidColorBrush)(new BrushConverter().ConvertFrom("#313937"));
 
@@ -56,6 +70,81 @@ namespace FridgyKey
             MyNotifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(MyNotifyIcon_MouseDoubleClick);
             #endregion
         }
+
+        #region small logica
+        public void FillIngred()
+        {
+            list_in.Items.Clear();
+            bool fl = false;  
+            foreach (var f in l)
+            {
+                list_in.Items.Add(f.ToString());
+                fl = true;
+            }
+            if (!fl)
+            {
+                list_in.Items.Add("No products.");
+            }
+
+        }
+        private void btnLoadImage_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OpenFileDialog img = new OpenFileDialog();
+
+                BitmapImage bm1 = new BitmapImage();
+                img.ShowDialog();
+                var s = img.SafeFileName;
+                FileStream fs = new FileStream(img.FileName, FileMode.Open);
+                Data = new Byte[fs.Length];
+                int read = (int)fs.Length;
+                fs.Read(Data, 0, read);
+                fs.Close();
+
+                bm1.BeginInit();
+                bm1.UriSource = new Uri(img.FileName, UriKind.Relative);
+                bm1.CacheOption = BitmapCacheOption.OnLoad;
+                bm1.EndInit();
+
+                image.Source = bm1;
+                //lpath.Content = System.IO.Path.GetFileNameWithoutExtension(img.FileName);
+                lpath.Content = s;
+
+            }
+            catch
+            {
+                MessageBox.Show("open error");
+            }
+        }
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            if (combo.SelectedItem == null || txtamount.Text == "" || txtei.Text == "")
+            {
+                MessageBox.Show("Заполните все поля.");
+            }
+            else
+            {
+                l.Add(new Ingredient(Convert.ToInt32(txtamount.Text), txtei.Text, combo.SelectedItem.ToString()));
+                FillIngred();
+                txtamount.Text = "";
+                txtei.Text = "";
+                combo.Text = "";
+            }
+        }
+        private void btnCleanProduct_Click(object sender, RoutedEventArgs e)
+        {
+            txtamount.Text = "";
+            txtei.Text = "";
+            combo.Text = "";
+        }
+        public void Fill()
+        {
+            int product_count = Product.Get_count();
+            for (int i = 1; i <= product_count; i++)
+                combo.Items.Add(Product.Get_product_by_id(i));
+        }
+        #endregion
 
         #region methods_menu
         #region methods_click_mouse
@@ -100,10 +189,16 @@ namespace FridgyKey
             Menu.Show();
             this.Close();
         }
+        private void label17_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ShoppingBasket d = new ShoppingBasket();
+            d.Show();
+            this.Close();
+        }
 
         private void label5_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Kkal Menu = new Kkal();
+            Calculate Menu = new Calculate();
             Menu.Show();
             this.Close();
         }
@@ -115,98 +210,107 @@ namespace FridgyKey
             this.Close();
         }
         #endregion
-
-        #region methods_move_mouse
-        private void label1_MouseMove(object sender, MouseEventArgs e)
-        {
-            l1.Foreground = Mcolor;
-            //l1.FontWeight = FontWeights.SemiBold;
-        }
-
-        private void label2_MouseMove(object sender, MouseEventArgs e)
-        {
-            l2.Foreground = Mcolor;
-        }
-
-        private void label3_MouseMove(object sender, MouseEventArgs e)
-        {
-            l3.Foreground = Mcolor;
-        }
-
-        private void label4_MouseMove(object sender, MouseEventArgs e)
-        {
-            l4.Foreground = Mcolor;
-        }
-
-        private void label5_MouseMove(object sender, MouseEventArgs e)
-        {
-            l5.Foreground = Mcolor;
-        }
-
-        private void label6_MouseMove(object sender, MouseEventArgs e)
-        {
-            l6.Foreground = Mcolor;
-        }
-
-        private void label7_MouseMove(object sender, MouseEventArgs e)
-        {
-            l7.Foreground = Mcolor;
-        }
-
-        private void label8_MouseMove(object sender, MouseEventArgs e)
-        {
-            l8.Foreground = Mcolor;
-        }
-        #endregion 
+         
 
         #region methods_mouse_leave
-        private void label2_MouseLeave(object sender, MouseEventArgs e)
+        
+        private void ApplyEffect(Window win)
         {
-            l2.Foreground = Mcolor2;
+            System.Windows.Media.Effects.BlurEffect objBlur = new System.Windows.Media.Effects.BlurEffect();
+            objBlur.Radius = 4;
+            win.Effect = objBlur;
+        }
+        private void ClearEffect(Window win)
+        {
+            win.Effect = null;
+        }
+        private void About_p(object sender, MouseButtonEventArgs e)
+        {
+            AboutBtn objModal = new AboutBtn();
+            objModal.Owner = this;
+            ApplyEffect(this);
+
+            objModal.ShowDialog();
+
+            ClearEffect(this);
         }
 
+        private void label1_MouseMove(object sender, MouseEventArgs e)
+        {
+            ((Label)sender).Foreground = Mcolor;
+        }
         private void label1_MouseLeave(object sender, MouseEventArgs e)
         {
-            l1.Foreground = Mcolor2;
+            ((Label)sender).Foreground = Mcolor2;
         }
-
-        private void label3_MouseLeave(object sender, MouseEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            l3.Foreground = Mcolor2;
+            txtname.Text = "";
+            txttext.Text = "";
+            txtnot.Text = "";
+            lpath.Content = "";
+            image.Source = null;
+            txtamount.Text = "";
+            txtei.Text = "";
+            combo.Text = "";
+            l.Clear();
+            btnrec.Content = "Add recipe!";
         }
 
-        private void label4_MouseLeave(object sender, MouseEventArgs e)
+        private void Quest(object sender, MouseButtonEventArgs e)
         {
-            l4.Foreground = Mcolor2;
+            Quest objModal = new Quest();
+            objModal.Owner = this;
+            ApplyEffect(this);
+
+            objModal.ShowDialog();
+
+            ClearEffect(this);
         }
 
-        private void label5_MouseLeave(object sender, MouseEventArgs e)
+        private void amount_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            l5.Foreground = Mcolor2;
+            int val;
+            if (!Int32.TryParse(e.Text, out val))
+            {
+                e.Handled = true;
+            }
         }
-
-        private void label6_MouseLeave(object sender, MouseEventArgs e)
+         
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            l6.Foreground = Mcolor2;
+            if (txtname.Text == "" || txttext.Text == "" || l == null/* || image == null*/)
+            {
+                MessageBox.Show("Заполните все поля.");
+            }
+            else
+            {
+                int ingID = Ingredient.Set_list_ingredients(l);
+                Recipe.Set_Recipe(txtname.Text, txttext.Text, ingID, txtnot.Text, Data);
+                list_in.Items.Clear();
+                btnrec.Content = "Added!";
+                l.Clear();
+                NotificationWindow n = new NotificationWindow("Добавлен новый рецепт: " + txtname.Text);
+                n.Show();
+                lpath.Content = "";
+                image.Source = null;
+                txtname.Text = "";
+                txtnot.Text = "";
+                txttext.Text = "";
+                txtamount.Text = "";
+                txtei.Text = "";
+            }
         }
-
-        private void label7_MouseLeave(object sender, MouseEventArgs e)
-        {
-            l7.Foreground = Mcolor2;
-        }
-
-
-        private void label8_MouseLeave(object sender, MouseEventArgs e)
-        {
-            l8.Foreground = Mcolor2;
-        }
+ 
         #endregion
         #endregion
 
         #region methods_control_window
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            clsDB.Close_DB_Connection();
+            Close();
+            //Environment.Exit(0);
         }
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
@@ -235,58 +339,5 @@ namespace FridgyKey
         }
         #endregion
 
-        #region small logica
-        private void btnLoadImage_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //    Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
-                //    {
-                //        FileName = "image.jpg",
-                //        InitialDirectory = "Lab4_5"
-                //    };
-                //    openFileDialog.Filter = "Text Files (*.txt)|*.txt|RichText Files (*.rtf)|*.rtf|XAML Files (*.xaml)|*.xaml|All files (*.*)|*.*";
-                //    if (openFileDialog.ShowDialog() == true)
-                //    {
-                //        TextRange textRange = new TextRange(MainText.Document.ContentStart, MainText.Document.ContentEnd);
-                //        using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.OpenOrCreate))
-                //        {
-                //            if (Path.GetExtension(openFileDialog.FileName).ToLower() == ".rtf")
-                //                textRange.Load(fs, DataFormats.Rtf);
-                //            else if (Path.GetExtension(openFileDialog.FileName).ToLower() == ".txt")
-                //                textRange.Load(fs, DataFormats.Text);
-                //            else
-                //                textRange.Load(fs, DataFormats.Xaml);
-                //        }
-                //        this.Title = "TextEditor (" + openFileDialog.FileName + ") ";
-                //    }
-                //    else
-                //    {
-                //        throw new Exception("uncorrect extension");
-                //    }
-            }
-            catch
-            {
-                MessageBox.Show("open error");
-            }
-        }
-
-        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(combo.SelectedItem == null || txtamount.Text == ""))
-            {
-                //показать и добавить ингердиент
-            }
-            else
-            {
-                string s = "Please, confirm all field";
-            }
-        }
-        private void btnCleanProduct_Click(object sender, RoutedEventArgs e)
-        {
-            txtamount.Text = "";
-            combo.Text = "";
-        }
-        #endregion
     }
 }

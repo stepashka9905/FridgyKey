@@ -119,21 +119,77 @@
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AboutBtn.xaml.cs">
+      <DependentUpon>AboutBtn.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddProduct.xaml.cs">
       <DependentUpon>AddProduct.xaml</DependentUpon>
     </Compile>
     <Compile Include="AddRecipe.xaml.cs">
       <DependentUpon>AddRecipe.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Calculate.xaml.cs">
+      <DependentUpon>Calculate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblBasket.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblFrost.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblHack.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblKkal.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblRecipeIn.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblRecipeMain.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblSticker.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\tblUser.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog.xaml.cs">
+      <DependentUpon>Dialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShoppingBasket.xaml.cs">
+      <DependentUpon>ShoppingBasket.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationWindow.xaml.cs">
+      <DependentUpon>NotificationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Quest.xaml.cs">
+      <DependentUpon>Quest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="_classes\BGBuilder.cs" />
+    <Compile Include="_classes\Basket.cs" />
     <Compile Include="_classes\FridgeProduct.cs" />
     <Compile Include="GetRecipe.xaml.cs">
       <DependentUpon>GetRecipe.xaml</DependentUpon>
     </Compile>
     <Compile Include="_classes\Hack.cs" />
     <Compile Include="_classes\Ingredient.cs" />
-    <Compile Include="Kkal.xaml.cs">
-      <DependentUpon>Kkal.xaml</DependentUpon>
-    </Compile>
     <Compile Include="_classes\clsDB.cs" />
     <Compile Include="_classes\Product.cs" />
     <Compile Include="_classes\Recipe.cs" />
@@ -146,9 +202,14 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="_classes\Resource.cs" />
     <Compile Include="_classes\Sticker.cs" />
     <Compile Include="_classes\User.cs" />
     <Page Include="About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AboutBtn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,17 +221,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GetRecipe.xaml">
+    <Page Include="Calculate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Kkal.xaml">
+    <Page Include="Dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GetRecipe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShoppingBasket.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -187,6 +256,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NotificationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Quest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RecipeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -199,9 +276,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Menu.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Styles\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -222,71 +299,112 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="DB\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DB\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </None>
     <None Include="Debug\FridgyKey.exe.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="_classes\ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\icons\settings2.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="images\icons\shop2%282%29.png" />
+    <Resource Include="images\icons\buy.png" />
+    <Resource Include="images\icons\shop.png" />
+    <Resource Include="images\icons\unbuy.png" />
+    <Resource Include="images\icons\scroll.png" />
+    <Resource Include="images\quest\7.PNG" />
+    <Resource Include="images\quest\8.PNG" />
+    <Resource Include="images\quest\1.PNG" />
+    <Resource Include="images\quest\2.PNG" />
+    <Resource Include="images\quest\31.PNG" />
+    <Resource Include="images\quest\32.PNG" />
+    <Resource Include="images\quest\4.PNG" />
+    <Resource Include="images\quest\5.PNG" />
+    <Resource Include="images\quest\6.PNG" />
+    <Resource Include="images\icons\quest.png" />
+    <Resource Include="images\icons\question.png" />
+    <Resource Include="images\icons\search2.png" />
+    <Resource Include="images\icons\search1.png" />
+    <Resource Include="images\icons\search.png" />
+    <Resource Include="images\icons\about.png" />
+    <Resource Include="images\icons\email.png" />
+    <Resource Include="images\icons\insta.png" />
+    <Resource Include="images\icons\phone.png" />
+    <Resource Include="images\icons\skype.png" />
+    <Resource Include="images\icons\telegram.png" />
+    <Resource Include="images\icons\twitter.png" />
+    <Resource Include="images\icons\vk.png" />
+    <Resource Include="images\background\10.jpg" />
+    <Resource Include="images\background\11.jpeg" />
+    <Resource Include="images\background\12.jpg" />
+    <Resource Include="images\background\13.jpg" />
+    <Resource Include="images\background\19.jpg" />
+    <Resource Include="images\background\2.jpg" />
+    <Resource Include="images\background\3.jpg" />
+    <Resource Include="images\background\36.jpg" />
+    <Resource Include="images\background\5.jpg" />
+    <Resource Include="images\background\553531-1680x1050.jpg" />
+    <Resource Include="images\background\6.jpg" />
+    <Resource Include="images\background\9.jpg" />
+    <Resource Include="images\background\img.jpg" />
+    <Resource Include="images\background\JO-4TwJdBSQ.jpg" />
+    <Resource Include="images\test\25.gif" />
+    <Resource Include="images\test\251.gif" />
+    <Resource Include="images\icons\return.png" />
+    <Resource Include="images\i.ico" />
+    <Resource Include="images\icons\1.ico" />
+    <Resource Include="images\icons\1.png" />
     <Resource Include="images\icons\add.png" />
     <Resource Include="images\icons\calculate.png" />
     <Resource Include="images\icons\chat.png" />
+    <Resource Include="images\icons\chef.png" />
+    <Resource Include="images\icons\chef.png_64.png" />
+    <Resource Include="images\icons\cross.png" />
+    <Resource Include="images\icons\cross2.png" />
+    <Resource Include="images\icons\cross3.png" />
     <Resource Include="images\icons\get_recipe.png" />
+    <Resource Include="images\icons\hide.png" />
+    <Resource Include="images\icons\hide2.png" />
     <Resource Include="images\icons\home.png" />
+    <Resource Include="images\icons\i.ico" />
+    <Resource Include="images\icons\i.png" />
+    <Resource Include="images\icons\icon.png" />
+    <Resource Include="images\icons\icon_64.png" />
+    <Resource Include="images\icons\log.png" />
     <Resource Include="images\icons\log_in.png" />
     <Resource Include="images\icons\log_out.png" />
     <Resource Include="images\icons\more.png" />
-    <Resource Include="images\icons\settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\icons\cross.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\icons\cross2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\icons\cross3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\icons\hide.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\icons\hide2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="db_local_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>db_local.mdf</DependentUpon>
-    </Content>
-    <Resource Include="images\icons\Settings1.png" />
-    <Resource Include="Pusheen_Love.ico" />
-    <Resource Include="images\test\25.gif" />
+    <Resource Include="images\icons\new_user.png" />
+    <Resource Include="images\icons\new_user.png_64.png" />
     <Resource Include="images\icons\p.png" />
     <Resource Include="images\icons\p.png_64.png" />
-    <Resource Include="images\icons\u.png" />
-    <Resource Include="images\icons\u.png_64.png" />
-    <Resource Include="images\test\24.gif" />
-    <Resource Include="images\icons\log.png" />
     <Resource Include="images\icons\p1.ico" />
     <Resource Include="images\icons\p1.png" />
-    <Resource Include="images\test\17.gif" />
-    <Resource Include="images\test\18.gif" />
-    <Resource Include="images\test\19.gif" />
-    <Resource Include="images\test\20.gif" />
-    <Resource Include="images\test\21.gif" />
-    <Resource Include="images\test\22.gif" />
-    <Resource Include="images\test\23.gif" />
+    <Resource Include="images\icons\pass.png" />
+    <Resource Include="images\icons\pass.png_64.png" />
+    <Resource Include="images\icons\Pusheen_Love.ico" />
     <Resource Include="images\icons\ref.png" />
     <Resource Include="images\icons\ref.png_64.png" />
-    <Resource Include="images\test\16.gif" />
+    <Resource Include="images\icons\refresh.png" />
+    <Resource Include="images\icons\settings.png" />
+    <Resource Include="images\icons\Settings1.png" />
+    <Resource Include="images\icons\settings2.png" />
+    <Resource Include="images\icons\u.png" />
+    <Resource Include="images\icons\u.png_64.png" />
+    <Resource Include="images\icons\user.png" />
+    <Resource Include="images\icons\user.png_64.png" />
+    <Resource Include="images\icons\wcross3.png" />
     <Resource Include="images\test\0.gif" />
     <Resource Include="images\test\1.gif" />
     <Resource Include="images\test\10.gif" />
@@ -295,7 +413,16 @@
     <Resource Include="images\test\13.gif" />
     <Resource Include="images\test\14.gif" />
     <Resource Include="images\test\15.gif" />
+    <Resource Include="images\test\16.gif" />
+    <Resource Include="images\test\17.gif" />
+    <Resource Include="images\test\18.gif" />
+    <Resource Include="images\test\19.gif" />
     <Resource Include="images\test\2.gif" />
+    <Resource Include="images\test\20.gif" />
+    <Resource Include="images\test\21.gif" />
+    <Resource Include="images\test\22.gif" />
+    <Resource Include="images\test\23.gif" />
+    <Resource Include="images\test\24.gif" />
     <Resource Include="images\test\3.gif" />
     <Resource Include="images\test\4.gif" />
     <Resource Include="images\test\5.gif" />
@@ -303,27 +430,30 @@
     <Resource Include="images\test\7.gif" />
     <Resource Include="images\test\8.gif" />
     <Resource Include="images\test\9.gif" />
-    <Resource Include="images\test\Pusheen.gif" />
     <Resource Include="images\test\cat.gif" />
-    <Content Include="DB\db_local.mdf">
+    <Resource Include="images\test\Pusheen.gif" />
+    <Resource Include="images\test\Pusheen_Love.png" />
+    <Resource Include="images\test\skrep49.png" />
+    <Resource Include="Pusheen_Love.ico" />
+    <Content Include="DB\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DB\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="DB\my_db.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="DB\db_local_log.ldf">
+    <Content Include="DB\my_db_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>db_local.mdf</DependentUpon>
-    </Content>
-    <Content Include="db_local.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>my_db.mdf</DependentUpon>
     </Content>
     <Content Include="Debug\FridgyKey.exe" />
     <Content Include="Debug\FridgyKey.pdb" />
-    <Resource Include="images\icons\new_user.png" />
-    <Resource Include="images\icons\new_user.png_64.png" />
-    <Resource Include="images\Colors.PNG" />
-    <Resource Include="images\icons\pass.png" />
-    <Resource Include="images\icons\pass.png_64.png" />
-    <Resource Include="images\icons\user.png" />
-    <Resource Include="images\icons\user.png_64.png" />
     <Resource Include="Debug\images\recipe\1.png" />
     <Resource Include="Debug\images\Colors.PNG" />
     <Resource Include="Debug\images\icons\add.png" />
@@ -346,9 +476,6 @@
     <Resource Include="Debug\images\icons\settings.png" />
     <Resource Include="Debug\images\icons\settings2.png" />
     <Resource Include="Debug\images\icons\wcross3.png" />
-    <Resource Include="images\icons\chef.png" />
-    <Resource Include="images\icons\chef.png_64.png" />
-    <Resource Include="images\i.ico" />
     <Resource Include="docs\MySqlTransaction.xml" />
     <Resource Include="docs\MySqlParameterCollection.xml" />
     <Resource Include="docs\MySqlParameter.xml" />
@@ -360,10 +487,6 @@
     <Resource Include="docs\MySqlConnection.xml" />
     <Resource Include="docs\MySqlCommandBuilder.xml" />
     <Resource Include="docs\MySqlCommand.xml" />
-    <Content Include="images\icons\icon.png" />
-    <Resource Include="images\icons\icon_64.png" />
-    <Resource Include="images\icons\refresh.png" />
-    <Resource Include="images\icons\wcross3.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

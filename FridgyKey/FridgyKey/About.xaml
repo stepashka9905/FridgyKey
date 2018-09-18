@@ -6,22 +6,23 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:local="clr-namespace:FridgyKey"
         mc:Ignorable="d"
-        Title="About"  StateChanged="Window_StateChanged" Style="{StaticResource TitleStyle}" WindowStartupLocation="CenterScreen" >
+        Title="About" StateChanged="Window_StateChanged" Style="{StaticResource TitleStyle}" WindowStartupLocation="CenterScreen" >
     <Grid>
 
         <DockPanel>
-            <Canvas Background="#4B4A43">
+            <Canvas x:Name="canv" Background="#4B4A43">
+                <StackPanel Height="523" Width="867" Margin="77,48,0,0" Background="#FFFCF0E3">
+                    <DockPanel Margin="0,0,4.2,0">
+                        <Image gif:ImageBehavior.AnimatedSource="images/test/13.gif" Width="150 " Height="150" Margin="8,0,0,-10"/>
+                        <Label Content="Search" Foreground="#FF512F10" FontSize="36" FontFamily="Tw Cen MT Condensed" Height="49" Width="84" Margin="0,0,0,53" />
+                        <TextBox x:Name="txtsearch" Width="645" FontSize="18" Height="32" TextWrapping="Wrap" Margin="-80,18,0,0"/>
+                        <Button ToolTip="Поиск" Click="Search" Width="31" Height="30" Margin="-16,18,0,0">
+                            <Image Source="images/icons/search.png" Width="25" Height="25"/>
+                        </Button>
+                    </DockPanel>
+                    <ListBox Name="list_search" Height="362" Margin="23,0,23.2,0" SelectionChanged="list_search_SelectionChanged" ToolTip="Нажмите, чтобы открыть рецепт" Foreground="#FF9F9A94" BorderBrush="#00ABADB3" FontSize="28" FontFamily="Nautilus Pompilius"/>
+                </StackPanel>
 
-                <ScrollViewer Height="519" Canvas.Left="75" Canvas.Top="50">
-                    <StackPanel Background="#FFFCF0E4" Height="840" Width="846">
-                        <DockPanel>
-                            <Image gif:ImageBehavior.AnimatedSource="images/test/3.gif" Width="100 " Height="100" Margin="23,-1529,0,0"/>
-                            <Label Content="FridgyKey v1.0&#10;© Pakholko A.S., 2018. " Width="728" Margin="7,-603,0,914" FontFamily="LifeIsStrangeRU" FontSize="30" Height="85"/>
-                            <TextBox IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" Height="731" Width="811" Margin="-844,92,-11,800" FontFamily="LifeIsStrangeRU" FontSize="24"/>
-                        </DockPanel>
-                    </StackPanel>
-
-                </ScrollViewer >
 
                 <StackPanel Style="{StaticResource MenuEvent}">
                     <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
@@ -41,8 +42,8 @@
                         <Label x:Name="label2"   
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label2_MouseLeftButtonDown"
-                               MouseEnter="label2_MouseMove" 
-                               MouseLeave="label2_MouseLeave"
+                               MouseEnter="label1_MouseMove" 
+                               MouseLeave="label1_MouseLeave"
                                Content="Get recipe" 
                                FontSize="20" 
                                Width="150" 
@@ -53,8 +54,8 @@
                         <Label x:Name="label3"   
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label3_MouseLeftButtonDown" 
-                               MouseEnter="label3_MouseMove" 
-                               MouseLeave="label3_MouseLeave"
+                               MouseEnter="label1_MouseMove" 
+                               MouseLeave="label1_MouseLeave"
                                Content="Add product" 
                                FontSize="20" 
                                Width="150" 
@@ -65,8 +66,8 @@
                         <Label x:Name="label4"   
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label4_MouseLeftButtonDown" 
-                               MouseEnter="label4_MouseMove" 
-                               MouseLeave="label4_MouseLeave"
+                               MouseEnter="label1_MouseMove" 
+                               MouseLeave="label1_MouseLeave"
                                Content="Add recipe" 
                                FontSize="20" 
                                Width="150" 
@@ -77,8 +78,8 @@
                         <Label x:Name="label5"   
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label5_MouseLeftButtonDown"
-                               MouseEnter="label5_MouseMove" 
-                               MouseLeave="label5_MouseLeave"
+                               MouseEnter="label1_MouseMove" 
+                               MouseLeave="label1_MouseLeave"
                                Content="Calculate kkal" 
                                FontSize="20" 
                                Width="150" 
@@ -86,11 +87,35 @@
                         <Image Source="images/icons/calculate.png" Width="35" Height="35"/>
                     </DockPanel>
                     <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
+                        <Label x:Name="label7" 
+                               FontFamily="PG Isadora Cyr Pro"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
+                               MouseLeftButtonDown="label7_MouseLeftButtonDown" 
+                               Content="Search recipe" 
+                               FontSize="20" 
+                               Width="150" 
+                               Foreground="#313937"/>
+                        <Image Source="images/icons/more.png" Width="30" Height="30"/>
+                    </DockPanel>
+                    <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
+                        <Label x:Name="label17" 
+                               FontFamily="PG Isadora Cyr Pro"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
+                               MouseLeftButtonDown="label17_MouseLeftButtonDown" 
+                               Content="My basket" 
+                               FontSize="20" 
+                               Width="150" 
+                               Foreground="#313937" Margin="-4,0,0,0"/>
+                        <Image Source="images/icons/buy.png" Width="37" Height="34"/>
+                    </DockPanel>
+                    <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
                         <Label x:Name="label6"   
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label6_MouseLeftButtonDown"
-                               MouseEnter="label6_MouseMove" 
-                               MouseLeave="label6_MouseLeave"
+                               MouseEnter="label1_MouseMove" 
+                               MouseLeave="label1_MouseLeave"
                                Content="Settings"
                                FontSize="20"
                                Width="150" 
@@ -98,22 +123,10 @@
                         <Image Source="images/icons/Settings.png" Width="35" Height="35"/>
                     </DockPanel>
                     <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
-                        <Label x:Name="label7"   
-                               FontFamily="PG Isadora Cyr Pro"
-                               MouseEnter="label7_MouseMove" 
-                               MouseLeave="label7_MouseLeave"
-                               MouseLeftButtonDown="label7_MouseLeftButtonDown" 
-                               Content="About" 
-                               FontSize="20" 
-                               Width="150" 
-                               Foreground="#313937"/>
-                        <Image Source="images/icons/more.png" Width="35" Height="35"/>
-                    </DockPanel>
-                    <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
                         <Label x:Name="label8"   
                                FontFamily="PG Isadora Cyr Pro"
-                               MouseEnter="label8_MouseMove" 
-                               MouseLeave="label8_MouseLeave"
+                               MouseEnter="label1_MouseMove" 
+                               MouseLeave="label1_MouseLeave"
                                MouseLeftButtonDown="Label8_MouseLeftButtonDown"
                                Content="Log out" 
                                FontSize="20" 
@@ -130,9 +143,21 @@
                 </Border>
             </Canvas>
         </DockPanel>
-        <Image MouseLeftButtonDown="Image_MouseLeftButtonDown_1" Source="images/icons/hide2.png" Height="25" Margin="915,0,35,575" />
-
-        <Image MouseLeftButtonDown="Image_MouseLeftButtonDown" Source="images/icons/cross3.png" Height="25" Width="30" Margin="942,0,0,575" />
-
+        <Image ToolTip="Свернуть в трей" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" Source="images/icons/hide2.png" Height="25" Margin="922,0,28,575" />
+        <Image ToolTip="Закрыть" MouseLeftButtonDown="Image_MouseLeftButtonDown" Source="images/icons/cross3.png" Height="25" Width="25" Margin="942,0,0,575" />
+        <Image ToolTip="О программе" MouseLeftButtonDown="About_p" Source="images/icons/about.png" Height="25" Margin="895,0,55,575" />
+        <Image ToolTip="Инструкции" MouseLeftButtonDown="Quest" Source="images/icons/quest.png" Margin="864,0,82,569" Height="31" Width="26" />
+        <TextBlock IsHitTestVisible="False" Text="search..." VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#FFD7D7D7" FontSize="18" Width="228" Height="24" Margin="243,116,0,460" Padding="6,0,0,0">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=txtsearch}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
     </Grid>
 </Window>

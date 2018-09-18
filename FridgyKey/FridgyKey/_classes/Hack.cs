@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 namespace FridgyKey
 {
     public static class Hack
-    {
+    { 
         public static int count;
-        public static string Get_Hack(int i)
+        public static string Get_Hack(int i) //готово
         {
-            SqlConnection sqlCon = clsDB.Get_DB_Connection(); 
+            SqlConnection sqlCon = clsDB.sqlCon; 
             try
             { 
                 DataTable dt = clsDB.Get_DataTable("select * from tblHack;");
@@ -28,7 +28,7 @@ namespace FridgyKey
             }
             finally
             {
-                clsDB.Close_DB_Connection();
+               // clsDB.Close_DB_Connection();
             }
         }
     }

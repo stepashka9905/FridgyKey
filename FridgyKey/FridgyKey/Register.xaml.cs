@@ -23,7 +23,7 @@ namespace FridgyKey
         #endregion
         public Register()
         {
-            InitializeComponent();
+            InitializeComponent();  
             #region service
             MyNotifyIcon = new System.Windows.Forms.NotifyIcon();
             MyNotifyIcon.Icon = new System.Drawing.Icon("Pusheen_Love.ico");
@@ -33,49 +33,62 @@ namespace FridgyKey
 
         private void btnGoRegister_Click(object sender, RoutedEventArgs e)
         {
-            SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.connection_str); 
+            int f;
             try
             {
-                if (sqlCon.State == System.Data.ConnectionState.Closed) sqlCon.Open();
-                if (txtfrostid.Text != null && txtusername.Text!=null && txtpassword.Password!=null)
+                if (txtpassword.Password.Length < 2)
                 {
-                    String query = "insert into tblUser (Username, Password, FrostID) values (@Username, @Password, @FrostID)";
-                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                    sqlCmd.CommandType = CommandType.Text;
-                    sqlCmd.Parameters.AddWithValue("@Username", txtusername.Text);
-                    sqlCmd.Parameters.AddWithValue("@Password", Convert.ToString(clsDB.Hash(txtpassword.Password)));
-                    sqlCmd.Parameters.AddWithValue("@FrostID", txtfrostid.Text);
-                    sqlCmd.ExecuteNonQuery();
-
+                    MessageBox.Show("Пароль должен быть не менее 2 символов.");
                 }
                 else
                 {
+                string query = "SELECT COUNT(1) FROM tblUser WHERE username=@Username AND password=@Password";
+                SqlCommand sqlCmd = new SqlCommand(query, clsDB.sqlCon);
+                sqlCmd.CommandType = CommandType.Text;
+                sqlCmd.Parameters.AddWithValue("@Username", txtusername.Text);
+                sqlCmd.Parameters.AddWithValue("@Password", Convert.ToString(clsDB.Hash(txtpassword.Password)));
+                int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                if (count == 1)
+                {
+                    MessageBox.Show("Такой пользователь уже существует.");
+                }
+                else
+                {
+                    if (txtfrostid.Text != "" && txtusername.Text != "" && txtpassword.Password != "")
+                    {
+                        f = 1;
+                        User.Set_User(f, txtusername.Text, Convert.ToString(clsDB.Hash(txtpassword.Password)), Convert.ToInt32(txtfrostid.Text));
+                        NotificationWindow n = new NotificationWindow(txtusername.Text + " успешно зарегистрирован!");
+                        n.Show();
+                    }
+                    else if (txtfrostid.Text == "" && txtusername.Text != "" && txtpassword.Password != "")
+                    {
+                        f = -1;
+                        User.Set_User(f, txtusername.Text, Convert.ToString(clsDB.Hash(txtpassword.Password)), User.Get_max_frostid() + 1);
+                        NotificationWindow n = new NotificationWindow(txtusername.Text + " успешно зарегистрирован!");
+                        n.Show();
+                    }
+                    else { MessageBox.Show("Заполните необходимые поля."); }
+                     
 
-                    //как сделать заполнение FrostID как max(FrostID)+1 ??????????
-                    MessageBox.Show("Fill all field.");
+                    MainWindow Menu = new MainWindow();
+                    Menu.Show();
+                    this.Close();
+                }
                 }
             }
             catch (Exception ex)
-            {
-
+            { 
                 MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                sqlCon.Close();
-            }
-            MainWindow Menu = new MainWindow();
-            Menu.Show();
-            this.Close();
-            User.Username = txtusername.Text;
-            //User.FrostID = DB.FrostID;
-        }
-
+            } 
+        } 
 
         #region methods_control_window
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            clsDB.Close_DB_Connection();
+            Close();
+            //Environment.Exit(0);
         }
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
@@ -103,5 +116,20 @@ namespace FridgyKey
             }
         }
         #endregion
+
+        private void Image_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
+        {
+            Login l = new Login();
+            l.Show();
+            this.Close();
+        } 
+        private void txtfrostid_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            int val;
+            if (!Int32.TryParse(e.Text, out val))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

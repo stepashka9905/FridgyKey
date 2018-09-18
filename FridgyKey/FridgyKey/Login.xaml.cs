@@ -27,20 +27,63 @@ namespace FridgyKey
         public Login()
         {
             InitializeComponent();
+
+            FillDB();
+            
+
+
+            StandartBuilder builder = new StandartBuilder();
+            builder.BuildStandarTheme(); 
+            Resource.bg = builder.GetResult();
+
             #region service
             MyNotifyIcon = new System.Windows.Forms.NotifyIcon();
             MyNotifyIcon.Icon = new System.Drawing.Icon("Pusheen_Love.ico");
             MyNotifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(MyNotifyIcon_MouseDoubleClick);
-            #endregion
-            
+            #endregion 
         }
 
         #region DB
-        private void Get_id ()
+
+        public static void FillDB()
         {
-            DataTable dt = clsDB.Get_DataTable("select top(1) frostID from tblUser where username='" + txtusername.Text + "';");
+            clsDB.sqlCon = clsDB.Get_DB_Connection();
+
+            string query = "select count(1) from ";
+
+            FridgeProduct.tbl = clsDB.Get_DataTable("select * from [tblFrost];");
+            SqlCommand sqlCmd1 = new SqlCommand(query + "[tblFrost]", clsDB.sqlCon);
+            FridgeProduct.count = Convert.ToInt32(sqlCmd1.ExecuteScalar());
+
+            Ingredient.tbl = clsDB.Get_DataTable("select * from [tblRecipeIn];");
+            SqlCommand sqlCmd2 = new SqlCommand(query + "[tblRecipeIn]", clsDB.sqlCon);
+            Ingredient.count = Convert.ToInt32(sqlCmd2.ExecuteScalar());
+
+            Product.tbl = clsDB.Get_DataTable("select * from [tblKkal];");
+            SqlCommand sqlCmd3 = new SqlCommand(query + "[tblKkal]", clsDB.sqlCon);
+            Product.count = Convert.ToInt32(sqlCmd3.ExecuteScalar());
+
+            Recipe.tbl = clsDB.Get_DataTable("select * from [tblRecipeMain];");
+            SqlCommand sqlCmd4 = new SqlCommand(query + "[tblRecipeMain]", clsDB.sqlCon);
+            Recipe.count = Convert.ToInt32(sqlCmd4.ExecuteScalar());
+
+            Sticker.tbl = clsDB.Get_DataTable("select * from [tblSticker];");
+            SqlCommand sqlCmd5 = new SqlCommand(query + "[tblSticker]", clsDB.sqlCon);
+            Sticker.count = Convert.ToInt32(sqlCmd5.ExecuteScalar());
+
+            User.tbl = clsDB.Get_DataTable("select * from [tblUser];");
+            SqlCommand sqlCmd6 = new SqlCommand(query + "[tblUser]", clsDB.sqlCon);
+            User.count = Convert.ToInt32(sqlCmd6.ExecuteScalar());
+
+            Basket.tbl = clsDB.Get_DataTable("select * from [tblBasket];");
+            SqlCommand sqlCmd7 = new SqlCommand(query + "[tblBasket]", clsDB.sqlCon);
+            Basket.count = Convert.ToInt32(sqlCmd7.ExecuteScalar());
+        }
+
+        private void Get_id ()
+        { 
             User.Username = txtusername.Text;
-            User.FrostID = (int)dt.Rows[0]["frostID"];
+            User.FrostID = User.Get_frost_id_by_name(txtusername.Text);
         }
  
 
@@ -51,7 +94,9 @@ namespace FridgyKey
         #region methods_control_window
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            clsDB.Close_DB_Connection();
+            Close();
+            //Environment.Exit(0);
         }
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
@@ -83,12 +128,10 @@ namespace FridgyKey
         #region small logica
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            SqlConnection sqlCon = clsDB.Get_DB_Connection(); 
-                //@"Data Source=DESKTOP-B9P5U74\SQLEXPRESS; Initial Catalog=FridgyKeyDB; Integrated Security=true;");
             try
             {                 
                 String query = "SELECT COUNT(1) FROM tblUser WHERE username=@Username AND password=@Password";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                SqlCommand sqlCmd = new SqlCommand(query, clsDB.sqlCon);
                 sqlCmd.CommandType = CommandType.Text;
                 sqlCmd.Parameters.AddWithValue("@Username", txtusername.Text);
                 sqlCmd.Parameters.AddWithValue("@Password", Convert.ToString(clsDB.Hash(txtpassword.Password)));
@@ -97,12 +140,12 @@ namespace FridgyKey
                 {
                     Get_id();
                     MainWindow Menu = new MainWindow();
-                    Menu.Show();
+                    Menu.Show(); 
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Username or password is incorrect."); 
+                    MessageBox.Show("Логин или пароль неверен."); 
                 }
             }
             catch (Exception ex)
@@ -112,7 +155,7 @@ namespace FridgyKey
             }
             finally
             {
-                clsDB.Close_DB_Connection();
+               // clsDB.Close_DB_Connection();
             }
         }
 
@@ -122,6 +165,6 @@ namespace FridgyKey
             Menu.Show();
             this.Close();
         }
-        #endregion
+        #endregion 
     }
 }

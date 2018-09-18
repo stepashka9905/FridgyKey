@@ -12,7 +12,9 @@
     <Grid>
 
         <DockPanel>
-            <Canvas Background="#4B4A43">
+            <Canvas x:Name="canv" Background="#FF4B4A43">
+                <Label Content="Create &#10;your own &#10;style!" Foreground="#FFEBE8E4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Stencil" FontSize="84" Canvas.Left="107" Canvas.Top="146"/>
+
                 <StackPanel  Style="{StaticResource MenuEvent}">
                     <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
                         <Label x:Name="label1" 
@@ -31,8 +33,8 @@
                         <Label x:Name="label2"  
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label2_MouseLeftButtonDown"
-                               MouseEnter="label2_MouseMove"
-                               MouseLeave="label2_MouseLeave"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
                                Content="Get recipe" 
                                FontSize="20" 
                                Width="150" 
@@ -43,8 +45,8 @@
                         <Label x:Name="label3"   
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label3_MouseLeftButtonDown" 
-                               MouseEnter="label3_MouseMove"
-                               MouseLeave="label3_MouseLeave"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
                                Content="Add product" 
                                FontSize="20" 
                                Width="150" 
@@ -55,8 +57,8 @@
                         <Label x:Name="label4"   
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label4_MouseLeftButtonDown" 
-                               MouseEnter="label4_MouseMove"
-                               MouseLeave="label4_MouseLeave"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
                                Content="Add recipe" 
                                FontSize="20" 
                                Width="150" 
@@ -67,8 +69,8 @@
                         <Label x:Name="label5"   
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label5_MouseLeftButtonDown"
-                               MouseEnter="label5_MouseMove"
-                               MouseLeave="label5_MouseLeave"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
                                Content="Calculate kkal" 
                                FontSize="20" 
                                Width="150" 
@@ -76,11 +78,35 @@
                         <Image Source="images/icons/calculate.png" Width="35" Height="35"/>
                     </DockPanel>
                     <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
+                        <Label x:Name="label7" 
+                               FontFamily="PG Isadora Cyr Pro"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
+                               MouseLeftButtonDown="label7_MouseLeftButtonDown" 
+                               Content="Search recipe" 
+                               FontSize="20" 
+                               Width="150" 
+                               Foreground="#313937"/>
+                        <Image Source="images/icons/more.png" Width="30" Height="30"/>
+                    </DockPanel>
+                    <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
+                        <Label x:Name="label17" 
+                               FontFamily="PG Isadora Cyr Pro"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
+                               MouseLeftButtonDown="label17_MouseLeftButtonDown" 
+                               Content="My basket" 
+                               FontSize="20" 
+                               Width="150" 
+                               Foreground="#313937" Margin="-4,0,0,0"/>
+                        <Image Source="images/icons/buy.png" Width="37" Height="34"/>
+                    </DockPanel>
+                    <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
                         <Label x:Name="label6"   
                                FontFamily="PG Isadora Cyr Pro"
                                MouseLeftButtonDown="label6_MouseLeftButtonDown"
-                               MouseEnter="label6_MouseMove"
-                               MouseLeave="label6_MouseLeave"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
                                Content="Settings"
                                FontSize="20"
                                Width="150" 
@@ -88,22 +114,10 @@
                         <Image Source="images/icons/settings.png" Width="35" Height="35"/>
                     </DockPanel>
                     <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
-                        <Label x:Name="label7"   
-                               FontFamily="PG Isadora Cyr Pro"
-                               MouseEnter="label7_MouseMove"
-                               MouseLeave="label7_MouseLeave"
-                               MouseLeftButtonDown="label7_MouseLeftButtonDown" 
-                               Content="About" 
-                               FontSize="20" 
-                               Width="150" 
-                               Foreground="#313937"/>
-                        <Image Source="images/icons/more.png" Width="35" Height="35"/>
-                    </DockPanel>
-                    <DockPanel VerticalAlignment='Center' HorizontalAlignment="Center">
                         <Label x:Name="label8"   
                                FontFamily="PG Isadora Cyr Pro"
-                               MouseEnter="label8_MouseMove"
-                               MouseLeave="label8_MouseLeave"
+                               MouseEnter="label1_MouseMove"
+                               MouseLeave="label1_MouseLeave"
                                MouseLeftButtonDown="Label8_MouseLeftButtonDown"
                                Content="Log out" 
                                FontSize="20" 
@@ -113,16 +127,20 @@
                     </DockPanel>
                 </StackPanel>
                 <Border Background="#556371" >
-                    <Grid>
-
-
-                    </Grid>
+                    <Grid/>
                 </Border>
+
             </Canvas>
         </DockPanel>
-        <Image MouseLeftButtonDown="Image_MouseLeftButtonDown_1" Source="images/icons/hide2.png" Height="25" Margin="915,0,35,575" />
-
-        <Image MouseLeftButtonDown="Image_MouseLeftButtonDown" Source="images/icons/cross3.png" Height="25" Width="30" Margin="942,0,0,575" />
+        <Button ToolTip="Выбрать изображение" Content="Load image" Click="Button_Click" Width="250" Height="50" Foreground="#FF595959" FontSize="20" FontFamily="SketchFlow Print" Margin="604,166,118,384"/>
+        <Label Content="or" Width="200" Height="50" Foreground="#CFCFCF" Margin="634,221,138,329" FontSize="20" FontFamily="SketchFlow Print" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Button ToolTip="Выбрать цвет" Content="Choose color" Click="Button_Click_1" Width="250" Height="50" Foreground="#FF595959" FontSize="20" FontFamily="SketchFlow Print" Margin="604,276,118,274"/>
+        <Image ToolTip="Свернуть в трей" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" Source="images/icons/hide2.png" Height="25" Margin="922,0,28,575" />
+        <Image ToolTip="Закрыть" MouseLeftButtonDown="Image_MouseLeftButtonDown" Source="images/icons/cross3.png" Height="25" Width="25" Margin="942,0,0,575" />
+        <Image ToolTip="О программе" MouseLeftButtonDown="About_p" Source="images/icons/about.png" Height="25" Margin="895,0,55,575" />
+        <Image ToolTip="Инструкции" MouseLeftButtonDown="Quest" Source="images/icons/quest.png" Margin="864,0,82,569" Height="31" Width="26" />
+        <Button ToolTip="Стандартное оформление" Content="Use basic style" Click="Button_Click_2" Width="250" Height="50" Foreground="#FF595959" FontSize="20" FontFamily="SketchFlow Print" Margin="604,381,118,169"/>
+        <Label Content="or" Width="200" Height="50" Foreground="#CFCFCF" Margin="634,331,138,219" FontSize="20" FontFamily="SketchFlow Print" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
 
     </Grid>
